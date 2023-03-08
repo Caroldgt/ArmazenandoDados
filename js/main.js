@@ -1,37 +1,36 @@
- const form = document.getElementById('novoItem')
+const form = document.getElementById("novoItem");
+const listas = document.getElementById("listas");
 
+form.addEventListener("submit", (evento) => {
+  evento.preventDefault();
+  console.log("funcionou");
 
- form.addEventListener("submit", (evento) => {
-    evento.preventDefault();
-    
+  const nome = evento.target.elements["nome"];
+  const quantidade = evento.target.elements["quantidade"];
 
-      Criarelemento(evento.target.elements['nome'].value,evento.target.elements['quantidade'].value);
+  criarElemento(
+    nome.value,
+    quantidade.value,
 
+    (nome.value = ""),
+    (quantidade.value = "")
+  );
+});
 
-   function Criarelemento(nome,quantidade){
+function criarElemento(nome, quantidade) {
+  console.log(nome), console.log(quantidade);
 
-      console.log(nome);
-      console.log(quantidade);
+  const NovoItem = document.createElement("li");
+  NovoItem.classList.add("item");
 
+  const numeroItem = document.createElement("strong");
+  numeroItem.innerHTML = quantidade;
 
-      const Novoitem = document.createElement('li');
-      Novoitem.classList.add("item");
+  NovoItem.appendChild(numeroItem);
+  NovoItem.innerHTML += nome;
 
+  listas.appendChild(NovoItem);
 
-      const Novovalor = document.createElement('strong');
-      Novovalor.innerHTML = quantidade;
-
-
-      Novoitem.appendChild(Novovalor);
-      Novoitem.innerHTML += nome
-
-
-      const lita = document.getElementById('lista')
-      
-      lita.appendChild(Novoitem)
-
-
-
-   }
-
- })
+  localStorage.getItem("nome", nome);
+  localStorage.getItem("quantidade", quantidade);
+}
